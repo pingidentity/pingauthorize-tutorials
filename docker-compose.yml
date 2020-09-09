@@ -4,6 +4,7 @@ services:
 
   pingdatagovernance:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdatagovernance:${PING_IDENTITY_DEVOPS_TAG}
+    container_name: pingdatagovernance
     environment:
       - SERVER_PROFILE_URL=${PROFILE_URL:-https://github.com/pingidentity/pingidentity-server-profiles.git}
       - SERVER_PROFILE_PATH=server-profiles/pingdatagovernance
@@ -16,6 +17,7 @@ services:
 
   pingdatagovernancepap:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdatagovernancepap:${PING_IDENTITY_DEVOPS_TAG}
+    container_name: pingdatagovernancepap
     environment:
       - SERVER_PROFILE_URL=${PROFILE_URL:-https://github.com/pingidentity/pingidentity-server-profiles.git}
       - SERVER_PROFILE_PATH=server-profiles/pingdatagovernancepap
@@ -28,6 +30,7 @@ services:
 
   pingdirectory:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
+    container_name: pingdirectory
     environment:
       - SERVER_PROFILE_URL=${PROFILE_URL:-https://github.com/pingidentity/pingidentity-server-profiles.git}
       - SERVER_PROFILE_PATH=server-profiles/pingdirectory
@@ -39,5 +42,6 @@ services:
 
   pingdataconsole:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
+    container_name: pingdataconsole
     ports:
       - "${CONSOLE_PORT:-5443}:8443"
