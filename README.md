@@ -23,7 +23,6 @@ used by the tutorials, edit the provided `env-template.txt` file and then rename
 | Environment variable | Default port | Description                         |
 | -------------------- | -----------: | ----------------------------------- |
 | CONSOLE\_PORT        | 5443         | The PingData Console port.          |
-| DS\_PORT             | 6443         | The PingDirectory Server port.      |
 | DG\_PORT             | 7443         | The PingDataGovernance Server port. |
 | PAP\_PORT            | 8443         | The Policy Administration GUI port. |
 
