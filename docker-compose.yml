@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+
+  pingdatagovernance:
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdatagovernance:${PING_IDENTITY_DEVOPS_TAG}
+    environment:
+      - SERVER_PROFILE_URL=${PROFILE_URL:-https://github.com/pingidentity/pingidentity-server-profiles.git}
+      - SERVER_PROFILE_PATH=server-profiles/pingdatagovernance
+      - SERVER_PROFILE_BRANCH=${PROFILE_BRANCH:-master}
+    env_file:
+      - ./.env
+      - ${HOME}/.pingidentity/devops
+    ports:
+      - "${DG_PORT:-7443}:443"
+
+  pingdatagovernancepap:
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdatagovernancepap:${PING_IDENTITY_DEVOPS_TAG}
+    environment:
+      - SERVER_PROFILE_URL=${PROFILE_URL:-https://github.com/pingidentity/pingidentity-server-profiles.git}
+      - SERVER_PROFILE_PATH=server-profiles/pingdatagovernancepap
+      - SERVER_PROFILE_BRANCH=${PROFILE_BRANCH:-master}
+      - HTTPS_PORT=8443
+    env_file:
+      - ${HOME}/.pingidentity/devops
+    ports:
+      - "${PAP_PORT:-8443}:8443"
+
+  pingdirectory:
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
+    environment:
+      - SERVER_PROFILE_URL=${PROFILE_URL:-https://github.com/pingidentity/pingidentity-server-profiles.git}
+      - SERVER_PROFILE_PATH=server-profiles/pingdirectory
+      - SERVER_PROFILE_BRANCH=${PROFILE_BRANCH:-master}
+    env_file:
+      - ${HOME}/.pingidentity/devops
+    ports:
+      - "${DS_PORT:-6443}:443"
+
+  pingdataconsole:
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
+    ports:
+      - "${CONSOLE_PORT:-5443}:8443"
