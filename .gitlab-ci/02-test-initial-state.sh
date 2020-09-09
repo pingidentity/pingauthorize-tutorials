@@ -12,7 +12,8 @@ PING_IDENTITY_DEVOPS_REGISTRY=${PING_IDENTITY_DEVOPS_REGISTRY:-docker.io/pingide
 PING_IDENTITY_DEVOPS_TAG=${PING_IDENTITY_DEVOPS_TAG:-edge}
 DEVOPS
 
-current_branch=${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME:-$(git branch --show-current)}
+current_branch=${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME:-${CI_COMMIT_BRANCH:-$(git\
+  branch --show-current)}}
 sed "s/<git_user>/$GITLAB_USER/;\
   s/<git_token>/$GITLAB_ACCESS_TOKEN/;\
   s/github\.com\/pingidentity/gitlab\.corp\.pingidentity\.com\/PingDirectory/;\
