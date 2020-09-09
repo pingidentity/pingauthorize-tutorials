@@ -1,0 +1,59 @@
+# CI Pipelines on MRs only
+workflow:
+  rules:
+    - if: $CI_MERGE_REQUEST_IID
+    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_PIPELINE_SOURCE == "web"
+
+stages:
+  - 00-initialization
+  - 01-validation
+  - 02-test-initial-state
+  - 03-cleanup
+  - 04-publish
+
+default:
+  image: "gcr.io/ping-gte/ubuntu-gitlab-pdg-tutorial-private:latest"
+  services:
+    - name: "docker:18.09-dind"
+  tags:
+    - k8s
+
+variables:
+  DOCKER_HOST: "tcp://localhost:2375"
+  DOCKER_API_VERSION: "1.39"
+  KUBERNETES_CPU_REQUEST: "1250m"
+  KUBERNETES_CPU_LIMIT: "2000m"
+  KUBERNETES_MEMORY_REQUEST: "500Mi"
+  KUBERNETES_MEMORY_LIMIT: "500Mi"
+  KUBERNETES_POLL_TIMEOUT: 600
+
+initialization:
+  stage: 00-initialization
+  script:
+    - "./.gitlab-ci/00-initialization.sh"
+
+validation:
+  stage: 01-validation
+  script:
+    - "./.gitlab-ci/01-validation.sh"
+
+test-initial-state:
+  stage: 02-test-initial-state
+  script:
+    - "./.gitlab-ci/02-test-initial-state.sh"
+
+cleanup:
+  stage: 03-cleanup
+  when: always
+  script:
+    - "./.gitlab-ci/03-cleanup.sh"
+
+publish:
+  stage: 04-publish
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^\d+\.\d+\-\d{8}\-\d{2}$/
+  script:
+    - "./.gitlab-ci/04-publish.sh"
+

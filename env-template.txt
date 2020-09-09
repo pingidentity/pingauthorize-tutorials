@@ -1,0 +1,15 @@
+# To override the default server ports, copy this file to .env and edit the variables below.
+DS_PORT=6443
+DG_PORT=7443
+PAP_PORT=8443
+CONSOLE_PORT=5443
+
+# See https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token
+# on how to generate a GitHub personal access token.
+GIT_USER=<git_user>
+GIT_TOKEN=<git_token>
+GIT_URL=github.com/pingidentity/pdg-tutorials.git
+
+PROFILE_URL=https://${GIT_USER}:${GIT_TOKEN}@${GIT_URL}
+PROFILE_BRANCH=8.2
+

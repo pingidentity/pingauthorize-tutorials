@@ -1,0 +1,72 @@
+dsconfig set-trust-manager-provider-prop \
+    --provider-name 'Blind Trust'  \
+    --set enabled:true 
+
+dsconfig create-external-server \
+    --server-name 'Directory Server (${PD_ENGINE_PRIVATE_HOSTNAME}:${LDAPS_PORT})' \
+    --type ping-identity-ds  \
+    --set server-host-name:${PD_ENGINE_PRIVATE_HOSTNAME} \
+    --set server-port:${LDAPS_PORT}  \
+    --set location:${LOCATION}  \
+    --set 'bind-dn:cn=Governance User,cn=Root DNs,cn=config'  \
+    --set 'password:${PING_IDENTITY_PASSWORD}' \
+    --set connection-security:ssl  \
+    --set key-manager-provider:Null  \
+    --set 'trust-manager-provider:Blind Trust' 
+
+dsconfig create-external-server \
+    --server-name 'Policy Administration GUI' \
+    --type policy \
+    --set base-url:https://${PDGP_ENGINE_PRIVATE_HOSTNAME}:${PAP_PORT} \
+    --set hostname-verification-method:allow-all \
+    --set key-manager-provider:Null \
+    --set 'trust-manager-provider:Blind Trust' \
+    --set shared-secret:${PING_IDENTITY_PASSWORD} \
+    --set 'branch:PDG Tutorials'
+
+dsconfig create-load-balancing-algorithm \
+    --algorithm-name 'Directory Server LBA'  \
+    --type failover  \
+    --set enabled:true  \
+    --set 'backend-server:Directory Server (${PD_ENGINE_PRIVATE_HOSTNAME}:${LDAPS_PORT})' \
+    --set use-location:false 
+
+dsconfig set-store-adapter-prop \
+    --adapter-name UserStoreAdapter  \
+    --set enabled:true  \
+    --set 'load-balancing-algorithm:Directory Server LBA'  \
+    --set create-dn-pattern:entryUUID=server-generated,ou=people,dc=example,dc=com 
+
+dsconfig create-scim-resource-type \
+    --type-name Users  \
+    --type pass-through  \
+    --set enabled:true  \
+    --set endpoint:Users  \
+    --set primary-store-adapter:UserStoreAdapter 
+
+dsconfig create-access-token-validator \
+    --validator-name 'Mock Access Token Validator'  \
+    --type mock  \
+    --set enabled:true 
+
+dsconfig create-token-resource-lookup-method \
+    --validator-name 'Mock Access Token Validator'  \
+    --method-name 'User match SCIM uid to token sub'  \
+    --type scim  \
+    --set evaluation-order-index:1  \
+    --set scim-resource-type:Users  \
+    --set 'match-filter:uid eq "%sub%"' 
+
+dsconfig set-policy-decision-service-prop \
+    --set pdp-mode:external  \
+    --set 'policy-server:Policy Administration GUI'  \
+    --set trust-framework-version:v2  \
+    --set decision-response-view:decision-tree  \
+    --set decision-response-view:evaluated-entities  \
+    --set decision-response-view:request 
+
+dsconfig set-log-publisher-prop \
+    --publisher-name 'Debug Trace Logger'  \
+    --set enabled:true  \
+    --remove 'retention-policy:File Count Retention Policy'  \
+    --add 'retention-policy:Retain Two Files Retention Policy' 
