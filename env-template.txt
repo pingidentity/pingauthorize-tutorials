@@ -1,5 +1,4 @@
 # To override the default server ports, copy this file to .env and edit the variables below.
-DS_PORT=6443
 DG_PORT=7443
 PAP_PORT=8443
 CONSOLE_PORT=5443
