@@ -12,13 +12,14 @@ PING_IDENTITY_DEVOPS_REGISTRY=${PING_IDENTITY_DEVOPS_REGISTRY:-docker.io/pingide
 PING_IDENTITY_DEVOPS_TAG=${PING_IDENTITY_DEVOPS_TAG:-edge}
 DEVOPS
 
+if [ ! -f .env ]; then
 current_branch=${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME:-${CI_COMMIT_BRANCH:-$(git\
   branch --show-current)}}
 sed "s/<git_user>/$GITLAB_USER/;\
   s/<git_token>/$GITLAB_ACCESS_TOKEN/;\
-  s/github\.com\/pingidentity/gitlab\.corp\.pingidentity\.com\/PingDirectory/;\
-  s/^PROFILE_BRANCH=.*$/PROFILE_BRANCH=$current_branch/" \
-  env-template.txt >.env
+  s/^PDG_TUTORIALS_PROFILE_BRANCH=.*$/PDG_TUTORIALS_PROFILE_BRANCH=$current_branch/" \
+  .gitlab-ci/env-template-dev.txt >.env
+fi
 
 docker-compose --verbose up \
   --detach \
