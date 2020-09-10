@@ -13,6 +13,5 @@
 #   export NAME=${NAME:-OTHER_VAR}       # Sets ot value of OTHER_VAR variable
 #
 export MAX_HEAP_SIZE=768m
-export LOCATION=Docker
 
-PING_IDENTITY_PASSWORD=${PING_IDENTITY_PASSWORD:=2FederateM0re}
+PING_IDENTITY_PASSWORD=2FederateM0re
