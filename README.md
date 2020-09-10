@@ -46,7 +46,7 @@ docker-compose up --detach
    by running the following command:
 
 ```bash
-docker container ls --format '{{ .Status }}'
+docker container ls --format '{{ .Names }}: {{ .Status }}'
 ```
 
 Eventually all 4 containers should have the `healthy` status.
