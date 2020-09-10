@@ -4,6 +4,6 @@
 # Dummy test to serve as an example.
 #
 run_test() {
-  echo "Running tests..."
+  echo "Dummy test..."
   return 0
 }
