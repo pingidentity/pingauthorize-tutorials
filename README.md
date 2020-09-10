@@ -28,7 +28,7 @@ used by the tutorials, edit the provided `env-template.txt` file and then rename
 
 ## Usage
 
-### Starting the containers
+### Bringing up the environment
 
 1. Copy the `env-template.txt` file to `.env` if you have not already done so.
 
@@ -36,7 +36,7 @@ used by the tutorials, edit the provided `env-template.txt` file and then rename
 cp env-template.txt .env
 ```
 
-2. Run the following command to bring up the stack.
+2. Run the following command to bring up the environment.
 
 ```bash
 docker-compose up --detach
@@ -51,17 +51,17 @@ docker container ls --format '{{ .Status }}'
 
 Eventually all 4 containers should have the `healthy` status.
 
-### Stopping the containers
+### Bringing down the environment
 
-1. To stop the containers, run the command:
+1. To stop and remove the containers, run the command:
 
 ```bash
 docker-compose down
 ```
 
-## Provided server stack
+## Provided servers
 
-Baseline docker-compose.yaml for DG/PAP/Directory stack. The PingData Console may be used to administer both
+Baseline docker-compose.yaml for DG/PAP/Directory environment. The PingData Console may be used to administer both
 PingDirectory and PingDataGovernance by logging in with the correct value in the `Server` field.
 
 | Product                   | URL                                | PingDataConsole `Server`  | Username        | Password          |
