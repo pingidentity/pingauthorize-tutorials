@@ -1,0 +1,33 @@
+# The settings in this configuration file reduce PingDirectory Server's overall
+# memory footprint by adjusting or disabling certain features that are
+# unnecessary for a demo environment. Please note that these changes are not
+# generally recommended for use in a production environment.
+#
+# For more information, see the topic "Installing a Lightweight Server" in the
+# PingDirectory Server Administration Guide.
+
+# Reduce the number of worker threads.
+dsconfig set-work-queue-prop \
+  --set num-worker-threads:8 \
+  --set num-administrative-session-worker-threads:4 \
+  --set max-work-queue-capacity:100
+
+# Reduce the percentage of JVM memory used for the BDB JE database cache.
+dsconfig set-backend-prop \
+  --backend-name userRoot \
+  --set db-cache-percent:5
+
+# Disable the Dictionary Password Validator, et al.
+dsconfig set-password-policy-prop \
+  --policy-name "Secure Password Policy" \
+  --remove password-validator:Dictionary \
+  --remove "password-validator:Commonly-Used Passwords"
+dsconfig set-password-policy-prop \
+  --policy-name "Root Password Policy" \
+  --remove password-validator:Dictionary \
+  --remove "password-validator:Commonly-Used Passwords"
+dsconfig delete-password-validator \
+  --validator-name Dictionary
+dsconfig delete-password-validator \
+  --validator-name "Commonly-Used Passwords"
+
