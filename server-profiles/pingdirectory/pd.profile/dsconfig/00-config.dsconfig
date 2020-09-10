@@ -1,7 +1,22 @@
-dsconfig set-trust-manager-provider-prop \
-    --provider-name 'Blind Trust'  \
-    --set enabled:true 
+# This file provides the initial PingDirectory Server configuration for the
+# PingDataGovernance tutorials. You can use customize this configuration for
+# use in your own test environments, but please be aware that this
+# configuration is intended for demo and documentation purposes only.
 
+# This creates a privileged service account to be used by PingDataGovernance
+# Server when it processes SCIM 2 requests.
+dsconfig create-root-dn-user \
+    --user-name 'Governance User'  \
+    --set 'alternate-bind-dn:cn=Governance User'  \
+    --set 'password:${PING_IDENTITY_PASSWORD}' \
+    --set inherit-default-root-privileges:false  \
+    --set privilege:password-reset  \
+    --set privilege:proxied-auth  \
+    --set privilege:unindexed-search  \
+    --set search-result-entry-limit:100000
+
+# This configures PingDirectory to accept LDAP requests from
+# PingDataGovernance Server's service account.
 dsconfig set-access-control-handler-prop \
     --add 'global-aci:(target="ldap:///cn=alerts")(targetattr="*||+")(version 3.0; acl "Governance User access to the alerts backend"; allow(read,search,compare) userdn="ldap:///cn=Governance User,cn=Root DNs,cn=config";)'  \
     --add 'global-aci:(target="ldap:///cn=monitor")(targetattr="*||+")(version 3.0; acl "Governance User access to the monitor backend"; allow(read,search,compare) userdn="ldap:///cn=Governance User,cn=Root DNs,cn=config";)'  \
@@ -33,16 +48,6 @@ dsconfig set-log-publisher-prop \
     --publisher-name 'File-Based Audit Logger' \
     --set enabled:true \
     --set 'retention-policy: Retain Two Files Retention Policy'
-
-dsconfig create-root-dn-user \
-    --user-name 'Governance User'  \
-    --set 'alternate-bind-dn:cn=Governance User'  \
-    --set 'password:${PING_IDENTITY_PASSWORD}' \
-    --set inherit-default-root-privileges:false  \
-    --set privilege:password-reset  \
-    --set privilege:proxied-auth  \
-    --set privilege:unindexed-search  \
-    --set search-result-entry-limit:100000 
 
 dsconfig set-plugin-prop \
     --plugin-name 'Stats Logger'  \

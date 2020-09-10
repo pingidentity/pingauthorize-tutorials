@@ -1,19 +1,21 @@
+# This file provides the initial PingDataGovernance Server configuration for
+# the PingDataGovernance tutorials. You can use customize this configuration
+# for use in your own test environments, but please be aware that this
+# configuration is intended for demo and documentation purposes only. Some
+# settings, including HTTPS connection security settings, are insecure and are
+# inappropriate for use in production or other public environments.
+
+# Trust Manager Providers are used by various configuration objects to
+# represent TLS connection security settings. Where the 'Blind Trust' Trust
+# Manager Provider is used, the server will accept any TLS certificate,
+# including self-signed certificates.
 dsconfig set-trust-manager-provider-prop \
     --provider-name 'Blind Trust'  \
     --set enabled:true 
 
-dsconfig create-external-server \
-    --server-name 'Directory Server (${PD_ENGINE_PRIVATE_HOSTNAME}:${LDAPS_PORT})' \
-    --type ping-identity-ds  \
-    --set server-host-name:${PD_ENGINE_PRIVATE_HOSTNAME} \
-    --set server-port:${LDAPS_PORT}  \
-    --set location:${LOCATION}  \
-    --set 'bind-dn:cn=Governance User,cn=Root DNs,cn=config'  \
-    --set 'password:${PING_IDENTITY_PASSWORD}' \
-    --set connection-security:ssl  \
-    --set key-manager-provider:Null  \
-    --set 'trust-manager-provider:Blind Trust' 
-
+# This defines the settings that PingDataGovernance Server uses to submit
+# policy decision requests to the Policy Administration GUI's policy engine,
+# including the name of the policy branch to use.
 dsconfig create-external-server \
     --server-name 'Policy Administration GUI' \
     --type policy \
@@ -24,6 +26,23 @@ dsconfig create-external-server \
     --set shared-secret:${PING_IDENTITY_PASSWORD} \
     --set 'branch:PDG Tutorials'
 
+# This defines the connection settings that PingDataGovernance Server uses to
+# establish LDAPS connections to PingDirectory.
+dsconfig create-external-server \
+    --server-name 'Directory Server (${PD_ENGINE_PRIVATE_HOSTNAME}:${LDAPS_PORT})' \
+    --type ping-identity-ds  \
+    --set server-host-name:${PD_ENGINE_PRIVATE_HOSTNAME} \
+    --set server-port:${LDAPS_PORT}  \
+    --set location:${LOCATION}  \
+    --set 'bind-dn:cn=Governance User,cn=Root DNs,cn=config'  \
+    --set 'password:${PING_IDENTITY_PASSWORD}' \
+    --set connection-security:ssl  \
+    --set key-manager-provider:Null  \
+    --set 'trust-manager-provider:Blind Trust'
+
+# A load-balancing algorithm is used by the SCIM Store Adapter to communicate
+# with a set of LDAP directory servers. In this case, PingDataGovernance uses
+# a set of one directory server, defined previously.
 dsconfig create-load-balancing-algorithm \
     --algorithm-name 'Directory Server LBA'  \
     --type failover  \
@@ -31,12 +50,22 @@ dsconfig create-load-balancing-algorithm \
     --set 'backend-server:Directory Server (${PD_ENGINE_PRIVATE_HOSTNAME}:${LDAPS_PORT})' \
     --set use-location:false 
 
+# A Store Adapter translates SCIM requests to a data store's native format - in
+# this case, LDAP.
 dsconfig set-store-adapter-prop \
     --adapter-name UserStoreAdapter  \
     --set enabled:true  \
     --set 'load-balancing-algorithm:Directory Server LBA'  \
     --set create-dn-pattern:entryUUID=server-generated,ou=people,dc=example,dc=com 
 
+# A SCIM Resource Type defines a type of REST resource that will be handled by
+# the SCIM 2 subsystem. Here, the resource type is named 'Users' and it is
+# available to clients at the '/scim/v2/Users' endpoint. This SCIM Resource Type
+# is a 'pass-through' resource type, meaning that its schema and attributes are
+# not explicitly defined in the PingDataGovernance Server configuration.
+# Instead, resources belonging to this type automatically use the schema and
+# attributes defined by the underlying data store - in this case, the LDAP
+# 'inetOrgPerson' object class.
 dsconfig create-scim-resource-type \
     --type-name Users  \
     --type pass-through  \
@@ -44,11 +73,19 @@ dsconfig create-scim-resource-type \
     --set endpoint:Users  \
     --set primary-store-adapter:UserStoreAdapter 
 
+# Access Token Validators are used by various HTTP services to parse and accept
+# bearer tokens included in HTTP requests. This defines a Mock Access Token
+# Validator, which accepts 'mock' access tokens for test use. Please refer
+# to the PingDataGovernance Server Administration Guide for more information
+# about mock access tokens and how to use them.
 dsconfig create-access-token-validator \
     --validator-name 'Mock Access Token Validator'  \
     --type mock  \
     --set enabled:true 
 
+# A Token Resource Lookup Method correlates the access token subject to an
+# identity. This Token Resource Lookup Method expects the value of an access
+# token's 'sub' claim to contain the 'uid' value of a SCIM user resource.
 dsconfig create-token-resource-lookup-method \
     --validator-name 'Mock Access Token Validator'  \
     --method-name 'User match SCIM uid to token sub'  \
@@ -57,6 +94,10 @@ dsconfig create-token-resource-lookup-method \
     --set scim-resource-type:Users  \
     --set 'match-filter:uid eq "%sub%"' 
 
+# The Policy Decision Service controls how PingDataGovernance Server makes
+# policy requests to the policy engine. This configures PingDataGovernance
+# Server to use external PDP mode, which uses the Policy Administration GUI as
+# the policy engine when evaluating policies.
 dsconfig set-policy-decision-service-prop \
     --set pdp-mode:external  \
     --set 'policy-server:Policy Administration GUI'  \
@@ -65,6 +106,10 @@ dsconfig set-policy-decision-service-prop \
     --set decision-response-view:evaluated-entities  \
     --set decision-response-view:request 
 
+# This enables the debug-trace log, which records detailed information about
+# PingDataGovernance Server's processing stages in response to HTTP requests.
+# This log is used frequently for troubleshooting and is located at the path
+# 'logs/debug-trace' under the server's root directory.
 dsconfig set-log-publisher-prop \
     --publisher-name 'Debug Trace Logger'  \
     --set enabled:true  \
