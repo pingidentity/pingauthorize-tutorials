@@ -70,6 +70,7 @@ sn: Garbish
 cn: Christa Garbish
 initials: CJG
 employeeNumber: 2
+employeeType: intern
 uid: user.2
 mail: user.2@example.com
 userPassword: password
