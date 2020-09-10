@@ -61,7 +61,7 @@ docker-compose down
 
 ## Provided servers
 
-Baseline docker-compose.yaml for DG/PAP/Directory environment. The PingData Console may be used to administer both
+Baseline `docker-compose.yml` for DG/PAP/Directory environment. The PingData Console may be used to administer both
 PingDirectory and PingDataGovernance by logging in with the correct value in the `Server` field.
 
 | Product                   | URL                                | PingDataConsole `Server`  | Username        | Password          |
