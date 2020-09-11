@@ -5,5 +5,6 @@ PDG_TUTORIALS_CONSOLE_PORT=5443
 
 # You should not need to modify the below variables
 PDG_TUTORIALS_PROFILE_BRANCH=8.2
+PDG_TUTORIALS_DEVOPS_REGISTRY=docker.io/pingidentity
 PDG_TUTORIALS_DEVOPS_TAG=8.2.0.0-EA-alpine-java11-edge
 
