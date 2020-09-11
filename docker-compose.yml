@@ -3,43 +3,43 @@ version: "3.8"
 services:
 
   pingdatagovernance:
-    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdatagovernance:${PING_IDENTITY_DEVOPS_TAG}
+    image: ${PDG_TUTORIALS_DEVOPS_REGISTRY}/pingdatagovernance:${PDG_TUTORIALS_DEVOPS_TAG}
     container_name: pingdatagovernance
     environment:
-      - SERVER_PROFILE_URL=${PROFILE_URL:-https://github.com/pingidentity/pingidentity-server-profiles.git}
+      - SERVER_PROFILE_URL=${PDG_TUTORIALS_PROFILE_URL:-https://github.com/pingidentity/pdg-tutorials.git}
       - SERVER_PROFILE_PATH=server-profiles/pingdatagovernance
-      - SERVER_PROFILE_BRANCH=${PROFILE_BRANCH:-master}
+      - SERVER_PROFILE_BRANCH=${PDG_TUTORIALS_PROFILE_BRANCH:-main}
+      - PDG_TUTORIALS_PAP_PORT=${PDG_TUTORIALS_PAP_PORT:-8443}
     env_file:
-      - ./.env
       - ${HOME}/.pingidentity/devops
     ports:
-      - "${DG_PORT:-7443}:443"
+      - "${PDG_TUTORIALS_DG_PORT:-7443}:443"
 
   pingdatagovernancepap:
-    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdatagovernancepap:${PING_IDENTITY_DEVOPS_TAG}
+    image: ${PDG_TUTORIALS_DEVOPS_REGISTRY}/pingdatagovernancepap:${PDG_TUTORIALS_DEVOPS_TAG}
     container_name: pingdatagovernancepap
     environment:
-      - SERVER_PROFILE_URL=${PROFILE_URL:-https://github.com/pingidentity/pingidentity-server-profiles.git}
+      - SERVER_PROFILE_URL=${PDG_TUTORIALS_PROFILE_URL:-https://github.com/pingidentity/pdg-tutorials.git}
       - SERVER_PROFILE_PATH=server-profiles/pingdatagovernancepap
-      - SERVER_PROFILE_BRANCH=${PROFILE_BRANCH:-master}
+      - SERVER_PROFILE_BRANCH=${PDG_TUTORIALS_PROFILE_BRANCH:-main}
       - HTTPS_PORT=8443
     env_file:
       - ${HOME}/.pingidentity/devops
     ports:
-      - "${PAP_PORT:-8443}:8443"
+      - "${PDG_TUTORIALS_PAP_PORT:-8443}:8443"
 
   pingdirectory:
-    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
+    image: ${PDG_TUTORIALS_DEVOPS_REGISTRY}/pingdirectory:${PDG_TUTORIALS_DEVOPS_TAG}
     container_name: pingdirectory
     environment:
-      - SERVER_PROFILE_URL=${PROFILE_URL:-https://github.com/pingidentity/pingidentity-server-profiles.git}
+      - SERVER_PROFILE_URL=${PDG_TUTORIALS_PROFILE_URL:-https://github.com/pingidentity/pdg-tutorials.git}
       - SERVER_PROFILE_PATH=server-profiles/pingdirectory
-      - SERVER_PROFILE_BRANCH=${PROFILE_BRANCH:-master}
+      - SERVER_PROFILE_BRANCH=${PDG_TUTORIALS_PROFILE_BRANCH:-main}
     env_file:
       - ${HOME}/.pingidentity/devops
 
   pingdataconsole:
-    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
+    image: ${PDG_TUTORIALS_DEVOPS_REGISTRY}/pingdataconsole:${PDG_TUTORIALS_DEVOPS_TAG}
     container_name: pingdataconsole
     ports:
-      - "${CONSOLE_PORT:-5443}:8443"
+      - "${PDG_TUTORIALS_CONSOLE_PORT:-5443}:8443"

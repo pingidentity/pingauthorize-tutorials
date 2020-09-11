@@ -1,14 +1,10 @@
 # To override the default server ports, copy this file to .env and edit the variables below.
-DG_PORT=7443
-PAP_PORT=8443
-CONSOLE_PORT=5443
+PDG_TUTORIALS_DG_PORT=7443
+PDG_TUTORIALS_PAP_PORT=8443
+PDG_TUTORIALS_CONSOLE_PORT=5443
 
-# See https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token
-# on how to generate a GitHub personal access token.
-GIT_USER=<git_user>
-GIT_TOKEN=<git_token>
-GIT_URL=github.com/pingidentity/pdg-tutorials.git
-
-PROFILE_URL=https://${GIT_USER}:${GIT_TOKEN}@${GIT_URL}
-PROFILE_BRANCH=8.2
+# You should not need to modify the below variables
+PDG_TUTORIALS_PROFILE_BRANCH=8.2
+PDG_TUTORIALS_DEVOPS_REGISTRY=docker.io/pingidentity
+PDG_TUTORIALS_DEVOPS_TAG=8.2.0.0-EA-alpine-java11-edge
 
