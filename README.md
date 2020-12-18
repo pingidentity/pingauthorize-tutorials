@@ -66,10 +66,10 @@ Note that any progress made on the tutorials will be cleared after the container
 Baseline `docker-compose.yml` for DG/PAP/Directory environment. The PingData Console may be used to administer both
 PingDirectory and PingDataGovernance by logging in with the correct value in the `Server` field.
 
-| Product                   | URL                                | PingDataConsole `Server`  | Username        | Password          |
-| ------------------------- | ---------------------------------- | ------------------------  | --------------- | ----------------- |
-| PingData Console          | <https://localhost:5443/console/>  | N/A                       | N/A             | N/A               |
-| PingDirectory             | N/A                                | `pingdirectory`           | `administrator` | `2FederateM0re`   |
-| PingDataGovernance        | N/A                                | `pingdatagovernance`      | `administrator` | `2FederateM0re`   |
-| Policy Administration GUI | <https://localhost:8443>           | N/A                       | `admin`         | `password123`     |
+| Product                   | URL                                | PingDataConsole `Server`      | Username        | Password          |
+| ------------------------- | ---------------------------------- | ----------------------------  | --------------- | ----------------- |
+| PingData Console          | <https://localhost:5443/console/>  | N/A                           | N/A             | N/A               |
+| PingDirectory             | N/A                                | `pingdirectory:636`           | `administrator` | `2FederateM0re`   |
+| PingDataGovernance        | N/A                                | `pingdatagovernance:636`      | `administrator` | `2FederateM0re`   |
+| Policy Administration GUI | <https://localhost:8443>           | N/A                           | `admin`         | `password123`     |
 
