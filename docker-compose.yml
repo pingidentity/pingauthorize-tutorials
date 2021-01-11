@@ -1,3 +1,5 @@
+# You should not need to modify this file. Please modify the variables in your .env file instead. The env-template.txt
+# file contains an example .env file with default values pre-populated.
 version: "2.4"
 
 services:
@@ -9,7 +11,6 @@ services:
       - SERVER_PROFILE_URL=${PDG_TUTORIALS_PROFILE_URL:-https://github.com/pingidentity/pdg-tutorials.git}
       - SERVER_PROFILE_PATH=server-profiles/pingdatagovernance
       - SERVER_PROFILE_BRANCH=${PDG_TUTORIALS_PROFILE_BRANCH:-main}
-      - PDG_TUTORIALS_PAP_PORT=${PDG_TUTORIALS_PAP_PORT:-8443}
     env_file:
       - ${HOME}/.pingidentity/devops
     ports:
@@ -22,6 +23,7 @@ services:
       - SERVER_PROFILE_URL=${PDG_TUTORIALS_PROFILE_URL:-https://github.com/pingidentity/pdg-tutorials.git}
       - SERVER_PROFILE_PATH=server-profiles/pingdatagovernancepap
       - SERVER_PROFILE_BRANCH=${PDG_TUTORIALS_PROFILE_BRANCH:-main}
+      - PING_EXTERNAL_BASE_URL=${PDG_TUTORIALS_PAP_HOSTNAME}:${PDG_TUTORIALS_PAP_PORT}
       - HTTPS_PORT=8443
     env_file:
       - ${HOME}/.pingidentity/devops

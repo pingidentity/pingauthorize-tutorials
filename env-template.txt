@@ -3,6 +3,10 @@ PDG_TUTORIALS_DG_PORT=7443
 PDG_TUTORIALS_PAP_PORT=8443
 PDG_TUTORIALS_CONSOLE_PORT=5443
 
+# If accessing the Policy Administration GUI using a hostname other than "localhost" modify the environment variable
+# below to pass browser CORS checks.
+PDG_TUTORIALS_PAP_HOSTNAME=localhost
+
 # You should not need to modify the below variables
 PDG_TUTORIALS_PROFILE_BRANCH=8.2
 PDG_TUTORIALS_DEVOPS_REGISTRY=docker.io/pingidentity
