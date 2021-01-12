@@ -19,7 +19,7 @@ dsconfig set-trust-manager-provider-prop \
 dsconfig create-external-server \
     --server-name 'Policy Administration GUI' \
     --type policy \
-    --set base-url:https://${PDGP_ENGINE_PRIVATE_HOSTNAME}:${PDG_TUTORIALS_PAP_PORT} \
+    --set base-url:https://${PDGP_ENGINE_PRIVATE_HOSTNAME}:8443 \
     --set hostname-verification-method:allow-all \
     --set key-manager-provider:Null \
     --set 'trust-manager-provider:Blind Trust' \
