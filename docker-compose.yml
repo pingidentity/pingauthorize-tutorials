@@ -4,44 +4,44 @@ version: "2.4"
 
 services:
 
-  pingdatagovernance:
-    image: ${PDG_TUTORIALS_DEVOPS_REGISTRY}/pingdatagovernance:${PDG_TUTORIALS_DEVOPS_TAG}
-    container_name: pingdatagovernance
+  pingauthorize:
+    image: ${PAZ_TUTORIALS_DEVOPS_REGISTRY}/pingauthorize:${PAZ_TUTORIALS_DEVOPS_TAG}
+    container_name: pingauthorize
     environment:
-      - SERVER_PROFILE_URL=${PDG_TUTORIALS_PROFILE_URL:-https://github.com/pingidentity/pdg-tutorials.git}
-      - SERVER_PROFILE_PATH=server-profiles/pingdatagovernance
-      - SERVER_PROFILE_BRANCH=${PDG_TUTORIALS_PROFILE_BRANCH:-main}
+      - SERVER_PROFILE_URL=${PAZ_TUTORIALS_PROFILE_URL:-https://github.com/pingidentity/pdg-tutorials.git}
+      - SERVER_PROFILE_PATH=server-profiles/pingauthorize
+      - SERVER_PROFILE_BRANCH=${PAZ_TUTORIALS_PROFILE_BRANCH:-main}
     env_file:
       - ${HOME}/.pingidentity/devops
     ports:
-      - "${PDG_TUTORIALS_DG_PORT:-7443}:443"
+      - "${PAZ_TUTORIALS_PAZ_PORT:-7443}:1443"
 
-  pingdatagovernancepap:
-    image: ${PDG_TUTORIALS_DEVOPS_REGISTRY}/pingdatagovernancepap:${PDG_TUTORIALS_DEVOPS_TAG}
-    container_name: pingdatagovernancepap
+  pingauthorizepap:
+    image: ${PAZ_TUTORIALS_DEVOPS_REGISTRY}/pingauthorizepap:${PAZ_TUTORIALS_DEVOPS_TAG}
+    container_name: pingauthorizepap
     environment:
-      - SERVER_PROFILE_URL=${PDG_TUTORIALS_PROFILE_URL:-https://github.com/pingidentity/pdg-tutorials.git}
-      - SERVER_PROFILE_PATH=server-profiles/pingdatagovernancepap
-      - SERVER_PROFILE_BRANCH=${PDG_TUTORIALS_PROFILE_BRANCH:-main}
-      - PING_EXTERNAL_BASE_URL=${PDG_TUTORIALS_PAP_HOSTNAME}:${PDG_TUTORIALS_PAP_PORT}
-      - HTTPS_PORT=8443
+      - SERVER_PROFILE_URL=${PAZ_TUTORIALS_PROFILE_URL:-https://github.com/pingidentity/pdg-tutorials.git}
+      - SERVER_PROFILE_PATH=server-profiles/pingauthorizepap
+      - SERVER_PROFILE_BRANCH=${PAZ_TUTORIALS_PROFILE_BRANCH:-main}
+      - PING_EXTERNAL_BASE_URL=${PAZ_TUTORIALS_PAP_HOSTNAME}:${PAZ_TUTORIALS_PAP_PORT}
+      - HTTPS_PORT=1443
     env_file:
       - ${HOME}/.pingidentity/devops
     ports:
-      - "${PDG_TUTORIALS_PAP_PORT:-8443}:8443"
+      - "${PAZ_TUTORIALS_PAP_PORT:-8443}:1443"
 
   pingdirectory:
-    image: ${PDG_TUTORIALS_DEVOPS_REGISTRY}/pingdirectory:${PDG_TUTORIALS_DEVOPS_TAG}
+    image: ${PAZ_TUTORIALS_DEVOPS_REGISTRY}/pingdirectory:${PAZ_TUTORIALS_DEVOPS_TAG}
     container_name: pingdirectory
     environment:
-      - SERVER_PROFILE_URL=${PDG_TUTORIALS_PROFILE_URL:-https://github.com/pingidentity/pdg-tutorials.git}
+      - SERVER_PROFILE_URL=${PAZ_TUTORIALS_PROFILE_URL:-https://github.com/pingidentity/pdg-tutorials.git}
       - SERVER_PROFILE_PATH=server-profiles/pingdirectory
-      - SERVER_PROFILE_BRANCH=${PDG_TUTORIALS_PROFILE_BRANCH:-main}
+      - SERVER_PROFILE_BRANCH=${PAZ_TUTORIALS_PROFILE_BRANCH:-main}
     env_file:
       - ${HOME}/.pingidentity/devops
 
   pingdataconsole:
-    image: ${PDG_TUTORIALS_DEVOPS_REGISTRY}/pingdataconsole:${PDG_TUTORIALS_DEVOPS_TAG}
+    image: ${PAZ_TUTORIALS_DEVOPS_REGISTRY}/pingdataconsole:${PAZ_TUTORIALS_DEVOPS_TAG}
     container_name: pingdataconsole
     ports:
-      - "${PDG_TUTORIALS_CONSOLE_PORT:-5443}:8443"
+      - "${PAZ_TUTORIALS_CONSOLE_PORT:-5443}:8443"

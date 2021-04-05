@@ -1,21 +1,20 @@
 # To override the default server ports, copy this file to .env and edit the variables below.
-PDG_TUTORIALS_DG_PORT=7443
-PDG_TUTORIALS_PAP_PORT=8443
-PDG_TUTORIALS_CONSOLE_PORT=5443
+PAZ_TUTORIALS_PAZ_PORT=7443
+PAZ_TUTORIALS_PAP_PORT=8443
+PAZ_TUTORIALS_CONSOLE_PORT=5443
 
-# If accessing the Policy Administration GUI using a hostname other than "localhost" modify the environment variable
+# If accessing the Policy Editor using a hostname other than "localhost" modify the environment variable
 # below to pass browser CORS checks.
-PDG_TUTORIALS_PAP_HOSTNAME=localhost
+PAZ_TUTORIALS_PAP_HOSTNAME=localhost
 
 # See https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token
 # on how to generate a GitHub personal access token.
-PDG_TUTORIALS_GIT_USER=<git_user>
-PDG_TUTORIALS_GIT_TOKEN=<git_token>
-PDG_TUTORIALS_GIT_URL=gitlab.corp.pingidentity.com/PingDirectory/pdg-tutorials.git
+PAZ_TUTORIALS_GIT_USER=<git_user>
+PAZ_TUTORIALS_GIT_TOKEN=<git_token>
+PAZ_TUTORIALS_GIT_URL=gitlab.corp.pingidentity.com/PingDirectory/pdg-tutorials.git
 
-PDG_TUTORIALS_PROFILE_URL=https://${PDG_TUTORIALS_GIT_USER}:${PDG_TUTORIALS_GIT_TOKEN}@${PDG_TUTORIALS_GIT_URL}
-PDG_TUTORIALS_PROFILE_BRANCH=main
+PAZ_TUTORIALS_PROFILE_URL=https://${PAZ_TUTORIALS_GIT_USER}:${PAZ_TUTORIALS_GIT_TOKEN}@${PAZ_TUTORIALS_GIT_URL}
+PAZ_TUTORIALS_PROFILE_BRANCH=8.3
 
-PDG_TUTORIALS_DEVOPS_REGISTRY=docker.io/pingidentity
-PDG_TUTORIALS_DEVOPS_TAG=edge
-
+PAZ_TUTORIALS_DEVOPS_REGISTRY=docker.io/pingidentity
+PAZ_TUTORIALS_DEVOPS_TAG=8.3.0.0-EA-edge

@@ -1,8 +1,8 @@
-# PingDataGovernance tutorial source files
+# PingAuthorize tutorial source files
 
 ## Overview
 
-This repository contains companion source files to be used with the PingDataGovernance tutorials found at
+This repository contains companion source files to be used with the PingAuthorize tutorials found at
 <https://documentation.pingidentity.com>.
 
 ## Prerequisites
@@ -20,11 +20,11 @@ The following table lists the default ports used and their respective environmen
 used by the tutorials, copy the provided `env-template.txt` file to `.env` for use by `docker-compose` and then modify
 the ports.
 
-| Environment variable                 | Default port | Description                         |
-| ------------------------------------ | -----------: | ----------------------------------- |
-| PDG\_TUTORIALS\_CONSOLE\_PORT        | 5443         | The PingData Console port.          |
-| PDG\_TUTORIALS\_DG\_PORT             | 7443         | The PingDataGovernance Server port. |
-| PDG\_TUTORIALS\_PAP\_PORT            | 8443         | The Policy Administration GUI port. |
+| Environment variable                  | Default port | Description                           |
+| ------------------------------------- | -----------: | ------------------------------------- |
+| PAZ\_TUTORIALS\_CONSOLE\_PORT         | 5443         | The PingData Console port.            |
+| PAZ\_TUTORIALS\_PAZ\_PORT             | 7443         | The PingAuthorize Server port.        |
+| PAZ\_TUTORIALS\_PAP\_PORT             | 8443         | The PingAuthorize Policy Editor port. |
 
 ## Usage
 
@@ -63,13 +63,13 @@ Note that any progress made on the tutorials will be cleared after the container
 
 ## Provided servers
 
-Baseline `docker-compose.yml` for DG/PAP/Directory environment. The PingData Console may be used to administer both
-PingDirectory and PingDataGovernance by logging in with the correct value in the `Server` field.
+Baseline `docker-compose.yml` for PingAuthorize/Policy Editor/PingDirectory environment. The PingData Console may be 
+used to administer both PingDirectory and PingAuthorize by logging in with the correct value in the `Server` field.
 
-| Product                   | URL                                | PingDataConsole `Server`      | Username        | Password          |
-| ------------------------- | ---------------------------------- | ----------------------------  | --------------- | ----------------- |
-| PingData Console          | <https://localhost:5443/console/>  | N/A                           | N/A             | N/A               |
-| PingDirectory             | N/A                                | `pingdirectory:636`           | `administrator` | `2FederateM0re`   |
-| PingDataGovernance        | N/A                                | `pingdatagovernance:636`      | `administrator` | `2FederateM0re`   |
-| Policy Administration GUI | <https://localhost:8443>           | N/A                           | `admin`         | `password123`     |
+| Product                     | URL                                | PingDataConsole `Server`       | Username        | Password          |
+| --------------------------- | ---------------------------------- | ------------------------------ | --------------- | ----------------- |
+| PingData Console            | <https://localhost:5443/console/>  | N/A                            | N/A             | N/A               |
+| PingDirectory               | N/A                                | `pingdirectory:1636`           | `administrator` | `2FederateM0re`   |
+| PingAuthorize               | N/A                                | `pingauthorize:1636`           | `administrator` | `2FederateM0re`   |
+| PingAuthorize Policy Editor | <https://localhost:8443>           | N/A                            | `admin`         | `password123`     |
 
