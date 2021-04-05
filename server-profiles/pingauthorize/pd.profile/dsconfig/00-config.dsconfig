@@ -1,5 +1,5 @@
-# This file provides the initial PingDataGovernance Server configuration for
-# the PingDataGovernance tutorials. You can use customize this configuration
+# This file provides the initial PingAuthorize Server configuration for
+# the PingAuthorize tutorials. You can use customize this configuration
 # for use in your own test environments, but please be aware that this
 # configuration is intended for demo and documentation purposes only. Some
 # settings, including HTTPS connection security settings, are insecure and are
@@ -13,20 +13,20 @@ dsconfig set-trust-manager-provider-prop \
     --provider-name 'Blind Trust'  \
     --set enabled:true 
 
-# This defines the settings that PingDataGovernance Server uses to submit
-# policy decision requests to the Policy Administration GUI's policy engine,
+# This defines the settings that PingAuthorize Server uses to submit
+# policy decision requests to the PingAuthorize Policy Editor's policy engine,
 # including the name of the policy branch to use.
 dsconfig create-external-server \
-    --server-name 'Policy Administration GUI' \
+    --server-name 'PingAuthorize Policy Editor' \
     --type policy \
-    --set base-url:https://${PDGP_ENGINE_PRIVATE_HOSTNAME}:8443 \
+    --set base-url:https://${PAZP_ENGINE_PRIVATE_HOSTNAME}:8443 \
     --set hostname-verification-method:allow-all \
     --set key-manager-provider:Null \
     --set 'trust-manager-provider:Blind Trust' \
     --set shared-secret:${PING_IDENTITY_PASSWORD} \
     --set 'branch:PDG Tutorials'
 
-# This defines the connection settings that PingDataGovernance Server uses to
+# This defines the connection settings that PingAuthorize Server uses to
 # establish LDAPS connections to PingDirectory.
 dsconfig create-external-server \
     --server-name 'Directory Server (${PD_ENGINE_PRIVATE_HOSTNAME}:${LDAPS_PORT})' \
@@ -41,7 +41,7 @@ dsconfig create-external-server \
     --set 'trust-manager-provider:Blind Trust'
 
 # A load-balancing algorithm is used by the SCIM Store Adapter to communicate
-# with a set of LDAP directory servers. In this case, PingDataGovernance uses
+# with a set of LDAP directory servers. In this case, PingAuthorize uses
 # a set of one directory server, defined previously.
 dsconfig create-load-balancing-algorithm \
     --algorithm-name 'Directory Server LBA'  \
@@ -62,7 +62,7 @@ dsconfig set-store-adapter-prop \
 # the SCIM 2 subsystem. Here, the resource type is named 'Users' and it is
 # available to clients at the '/scim/v2/Users' endpoint. This SCIM Resource Type
 # is a 'pass-through' resource type, meaning that its schema and attributes are
-# not explicitly defined in the PingDataGovernance Server configuration.
+# not explicitly defined in the PingAuthorize Server configuration.
 # Instead, resources belonging to this type automatically use the schema and
 # attributes defined by the underlying data store - in this case, the LDAP
 # 'inetOrgPerson' object class.
@@ -76,7 +76,7 @@ dsconfig create-scim-resource-type \
 # Access Token Validators are used by various HTTP services to parse and accept
 # bearer tokens included in HTTP requests. This defines a Mock Access Token
 # Validator, which accepts 'mock' access tokens for test use. Please refer
-# to the PingDataGovernance Server Administration Guide for more information
+# to the PingAuthorize Server Administration Guide for more information
 # about mock access tokens and how to use them.
 dsconfig create-access-token-validator \
     --validator-name 'Mock Access Token Validator'  \
@@ -94,20 +94,20 @@ dsconfig create-token-resource-lookup-method \
     --set scim-resource-type:Users  \
     --set 'match-filter:uid eq "%sub%"' 
 
-# The Policy Decision Service controls how PingDataGovernance Server makes
-# policy requests to the policy engine. This configures PingDataGovernance
-# Server to use external PDP mode, which uses the Policy Administration GUI as
+# The Policy Decision Service controls how PingAuthorize Server makes
+# policy requests to the policy engine. This configures PingAuthorize
+# Server to use external PDP mode, which uses the PingAuthorize Policy Editor as
 # the policy engine when evaluating policies.
 dsconfig set-policy-decision-service-prop \
     --set pdp-mode:external  \
-    --set 'policy-server:Policy Administration GUI'  \
+    --set 'policy-server:PingAuthorize Policy Editor'  \
     --set trust-framework-version:v2  \
     --set decision-response-view:decision-tree  \
     --set decision-response-view:evaluated-entities  \
     --set decision-response-view:request 
 
 # This enables the debug-trace log, which records detailed information about
-# PingDataGovernance Server's processing stages in response to HTTP requests.
+# PingAuthorize Server's processing stages in response to HTTP requests.
 # This log is used frequently for troubleshooting and is located at the path
 # 'logs/debug-trace' under the server's root directory.
 dsconfig set-log-publisher-prop \
