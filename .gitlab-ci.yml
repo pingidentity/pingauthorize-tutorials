@@ -17,9 +17,9 @@ stages:
   - 04-publish
 
 default:
-  image: "$PAZ_CI_RUNNER_IMAGE"
+  image: "$PDG_CI_RUNNER_IMAGE"
   services:
-    - name: "$PAZ_CI_DOCKERHUB_MIRROR/docker:18.09-dind"
+    - name: "$PDG_CI_DOCKERHUB_MIRROR/docker:18.09-dind"
   tags:
     - k8s
 
