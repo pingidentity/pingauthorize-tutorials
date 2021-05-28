@@ -24,7 +24,7 @@ dsconfig create-external-server \
     --set key-manager-provider:Null \
     --set 'trust-manager-provider:Blind Trust' \
     --set shared-secret:${PING_IDENTITY_PASSWORD} \
-    --set 'branch:PDG Tutorials'
+    --set 'branch:PingAuthorize Tutorials'
 
 # This defines the connection settings that PingAuthorize Server uses to
 # establish LDAPS connections to PingDirectory.
