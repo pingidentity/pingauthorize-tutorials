@@ -24,11 +24,11 @@ services:
       - SERVER_PROFILE_PATH=server-profiles/pingauthorizepap
       - SERVER_PROFILE_BRANCH=${PAZ_TUTORIALS_PROFILE_BRANCH:-main}
       - PING_EXTERNAL_BASE_URL=${PAZ_TUTORIALS_PAP_HOSTNAME}:${PAZ_TUTORIALS_PAP_PORT}
-      - HTTPS_PORT=1443
+      - HTTPS_PORT=8443
     env_file:
       - ${HOME}/.pingidentity/devops
     ports:
-      - "${PAZ_TUTORIALS_PAP_PORT:-8443}:1443"
+      - "${PAZ_TUTORIALS_PAP_PORT:-8443}:8443"
 
   pingdirectory:
     image: ${PAZ_TUTORIALS_DEVOPS_REGISTRY}/pingdirectory:${PAZ_TUTORIALS_DEVOPS_TAG}
