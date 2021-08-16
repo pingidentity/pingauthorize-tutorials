@@ -5,6 +5,9 @@
 This repository contains companion source files to be used with the PingAuthorize tutorials found at
 <https://documentation.pingidentity.com>.
 
+The documentation in this branch was verified at the time of publishing. The Docker tags and DevOps licenses used
+during verification might no longer be available. Refer to the `main` branch for the most up-to-date content.  
+
 ## Prerequisites
 
 * `docker` (version 19.03.12)
