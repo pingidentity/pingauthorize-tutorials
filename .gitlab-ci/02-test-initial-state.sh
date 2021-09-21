@@ -14,8 +14,8 @@ DEVOPS
 
 if [ ! -f .env ]; then
 current_branch=${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME:-${CI_COMMIT_BRANCH:-${CI_COMMIT_TAG:-main}}}
-sed "s/<git_user>/$GITLAB_USER/;\
-  s/<git_token>/$GITLAB_ACCESS_TOKEN/;\
+sed "s/<git_user>/$CI_REGISTRY_USER/;\
+  s/<git_token>/$CI_JOB_TOKEN/;\
   s/^PAZ_TUTORIALS_PROFILE_BRANCH=.*$/PAZ_TUTORIALS_PROFILE_BRANCH=$current_branch/" \
   .gitlab-ci/env-template-dev.txt >.env
 fi
