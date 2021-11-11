@@ -13,7 +13,7 @@ during verification might no longer be available. Refer to the `main` branch for
 * `docker` (version 19.03.12)
 * `docker-compose` (version 1.26.2)
 * You have followed the documentation at
-  <https://pingidentity-devops.gitbook.io/devops/getstarted> to obtain a DevOps
+  <https://devops.pingidentity.com/get-started/getStarted/> to obtain a DevOps
   key and set up the `ping-devops` environment and command-line tool (version
   0.6.8).
 
