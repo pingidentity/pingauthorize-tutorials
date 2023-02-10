@@ -14,8 +14,8 @@ during verification might no longer be available. Refer to the `main` branch for
 * `docker-compose` (version 1.26.2)
 * You have followed the documentation at
   <https://devops.pingidentity.com/get-started/introduction/> to obtain a DevOps
-  key and set up the `ping-devops` environment and command-line tool (version
-  0.6.8).
+  key and set up the `pingctl` environment and command-line tool (version
+  1.0.6).
 
 ## Configuration
 

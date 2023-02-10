@@ -2,8 +2,8 @@
 set -xeo pipefail
 
 [ ! -d "$HOME"/.pingidentity ] && mkdir "$HOME"/.pingidentity
-[ ! -f "$HOME"/.pingidentity/devops ] && \
-  cat <<DEVOPS > "$HOME"/.pingidentity/devops
+[ ! -f "$HOME"/.pingidentity/config ] && \
+  cat <<DEVOPS > "$HOME"/.pingidentity/config
 PING_IDENTITY_ACCEPT_EULA=${PING_IDENTITY_ACCEPT_EULA:-YES}
 PING_IDENTITY_DEVOPS_USER=${PING_IDENTITY_DEVOPS_USER:-pd-governance-eng@pingidentity.com}
 PING_IDENTITY_DEVOPS_KEY=${PING_IDENTITY_DEVOPS_KEY:-UNDEFINED}
