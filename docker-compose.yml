@@ -12,7 +12,7 @@ services:
       - SERVER_PROFILE_PATH=server-profiles/pingauthorize
       - SERVER_PROFILE_BRANCH=${PAZ_TUTORIALS_PROFILE_BRANCH:-main}
     env_file:
-      - ${HOME}/.pingidentity/devops
+      - ${HOME}/.pingidentity/config
     ports:
       - "${PAZ_TUTORIALS_PAZ_PORT:-7443}:1443"
 
@@ -26,7 +26,7 @@ services:
       - PING_EXTERNAL_BASE_URL=${PAZ_TUTORIALS_PAP_HOSTNAME}:${PAZ_TUTORIALS_PAP_PORT}
       - HTTPS_PORT=8443
     env_file:
-      - ${HOME}/.pingidentity/devops
+      - ${HOME}/.pingidentity/config
     ports:
       - "${PAZ_TUTORIALS_PAP_PORT:-8443}:8443"
 
@@ -38,7 +38,7 @@ services:
       - SERVER_PROFILE_PATH=server-profiles/pingdirectory
       - SERVER_PROFILE_BRANCH=${PAZ_TUTORIALS_PROFILE_BRANCH:-main}
     env_file:
-      - ${HOME}/.pingidentity/devops
+      - ${HOME}/.pingidentity/config
 
   pingdataconsole:
     image: ${PAZ_TUTORIALS_DEVOPS_REGISTRY}/pingdataconsole:${PAZ_TUTORIALS_DEVOPS_TAG}
