@@ -16,11 +16,10 @@ if [ ! -f .env ]; then
 current_branch=${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME:-${CI_COMMIT_BRANCH:-${CI_COMMIT_TAG:-main}}}
 sed "s/<git_user>/$CI_REGISTRY_USER/;\
   s/<git_token>/$CI_JOB_TOKEN/;\
-  s/^PAZ_TUTORIALS_PROFILE_BRANCH=.*$/PAZ_TUTORIALS_PROFILE_BRANCH=$current_branch/" \
+  s/^PAZ_TUTORIALS_PROFILE_BRANCH=.*$/PAZ_TUTORIALS_PROFILE_BRANCH=$current_branch/;\
+  s|^PAZ_TUTORIALS_DEVOPS_REGISTRY=.*$|PAZ_TUTORIALS_DEVOPS_REGISTRY=$PING_IDENTITY_DEVOPS_REGISTRY|" \
   .gitlab-ci/env-template-dev.txt >.env
 fi
-
-docker login --username "${DOCKER_USERNAME}" --password "${DOCKER_PASSWORD}"
 
 docker-compose --verbose up \
   --detach \
